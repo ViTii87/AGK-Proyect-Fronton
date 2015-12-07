@@ -2,12 +2,12 @@
 // Created: 2015-12-05
 
 // set window properties
-SetWindowTitle( "Fronton" )
-SetWindowSize( GetDeviceWidth(), GetDeviceHeight(), 0 )
+SetWindowTitle("Fronton")
+SetWindowSize(GetDeviceWidth(), GetDeviceHeight(), 0)
 
 // set display properties
-SetVirtualResolution( GetDeviceWidth(), GetDeviceHeight() )
-SetOrientationAllowed( 0, 0, 1, 1 )
+SetVirtualResolution(GetDeviceWidth(), GetDeviceHeight())
+SetOrientationAllowed(0, 0, 1, 1)
 
 // Guardamos en 2 variables la altura y anchura de cualquier dispositivo
 rx= GetDeviceWidth()
@@ -45,8 +45,9 @@ SetSpriteY(5, ry-25)
 // Cambiamos los tamaños de nuestras barras para que ocupen la pantalla
 SetSpriteSize(3,rx, getSpriteHeight(3))
 SetSpriteSize(4,getSpriteWidth(4),ry)
-SetSpriteAngle( 4, 180 ) 
+SetSpriteAngle(4, 180) 
 SetSpriteSize(5,rx, getSpriteHeight(5))
+SetSpriteSize(1,getSpriteWidth(1),ry/5)
 
 //Barras colisionadoras
 CreateSprite(6, 6)
@@ -66,7 +67,7 @@ maximo=0
 atrapado=0
 
 //Ajustamos color y tamaño de nuestro texto
-SetPrintColor( 255, 0, 0 ) 
+SetPrintColor(255, 0, 0) 
 SetPrintSize(30)
 
 
@@ -115,7 +116,7 @@ do
 	if getPointerState()
 		// Entonces calculamos si estamos pulsando dentro de nuestra barra
 		if getPointerX()>getSpriteX(1) AND getPointerX()<getSpriteX(1)+45
-			if getPointerY()>getSpriteY(1) AND getPointerY()<getSpriteY(1)+130
+			if getPointerY()>getSpriteY(1) AND getPointerY()<getSpriteY(1)+ry/5
 				// Usaremos una bandera para poder seguir moviendo la barra aunque no estemos sobre ella
 				bandera = 1
 			endif
@@ -124,25 +125,29 @@ do
 		bandera = 0
 	endif
 	
+	if(GetSpriteCollision(1,3)=1)
+		
+	endif
+	
 	// Con esto vamos a poder conseguir que movamos el sprite dependiendo de la posicion de nuestro dedo
 		if bandera = 1	
 			// Calculamos los limites para los que queremos que la pala se mueva o no, controlamos tambien los colisionadores
-			if(getPointerY()>=90) and (getPointerY()<=ry-90)
+			if(getPointerY()>=((ry/5)/2)+25) and (getPointerY()<=ry-(((ry/5)/2)+25))
 				setSpritePositionByOffset(1, getSpriteXByOffSet(1), getPointerY())
-				setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, getPointerY()-58)
-				setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, getPointerY()+58)
+				setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, getPointerY()-((ry/5)/2)+5)
+				setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, getPointerY()+((ry/5)/2)-5)
 			else
 				//Si es menor que 90 se nos iria muy arriba asi que hay que dejarlo en 90
-				if(getPointerY()<90)
-					setSpritePositionByOffset(1, getSpriteXByOffSet(1), 90)
-					setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, 90-58)
-					setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, 90+58)
+				if(getPointerY()<((ry/5)/2)+25)
+					setSpritePositionByOffset(1, getSpriteXByOffSet(1), ((ry/5)/2)+25)
+					setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, (((ry/5)/2)+25)-((ry/5)/2)+5)
+					setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, (((ry/5)/2)+25)+((ry/5)/2)-5)
 				else
 					// Si es menos que el borde inferior se nos iria muy abajo asi que lo dejamos en posicion fija de pantalla -90
-					if(getPointerY()>=ry-90)
-						setSpritePositionByOffset(1, getSpriteXByOffSet(1), ry-90)
-						setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, ry-90-58)
-						setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, ry-90+58)
+					if(getPointerY()>=ry-(((ry/5)/2)+25))
+						setSpritePositionByOffset(1, getSpriteXByOffSet(1), ry-(((ry/5)/2)+25))
+						setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, ry-(((ry/5)/2)+25)-((ry/5)/2)+5)
+						setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, ry-(((ry/5)/2)+25)+((ry/5)/2)-5)
 					endif	
 				endif
 			endif
