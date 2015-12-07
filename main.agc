@@ -17,7 +17,7 @@ ry= GetDeviceHeight()
 LoadImage(1, "barra.png")
 LoadImage(2, "bola.png")
 LoadMusic(1,"music.mp3")
-//PlayMusic(1,1)
+PlayMusic(1,1)
 
 for x=3 to 5
     LoadImage(x, "marco.png")
@@ -129,20 +129,20 @@ do
 			// Calculamos los limites para los que queremos que la pala se mueva o no, controlamos tambien los colisionadores
 			if(getPointerY()>=90) and (getPointerY()<=ry-90)
 				setSpritePositionByOffset(1, getSpriteXByOffSet(1), getPointerY())
-				setSpritePositionByOffset(6, getSpriteXByOffSet(1)+1, getPointerY()-58)
-				setSpritePositionByOffset(7, getSpriteXByOffSet(1)+1, getPointerY()+58)
+				setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, getPointerY()-58)
+				setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, getPointerY()+58)
 			else
 				//Si es menor que 90 se nos iria muy arriba asi que hay que dejarlo en 90
 				if(getPointerY()<90)
 					setSpritePositionByOffset(1, getSpriteXByOffSet(1), 90)
-					setSpritePositionByOffset(6, getSpriteXByOffSet(1)+1, 90-58)
-					setSpritePositionByOffset(7, getSpriteXByOffSet(1)+1, 90+58)
+					setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, 90-58)
+					setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, 90+58)
 				else
 					// Si es menos que el borde inferior se nos iria muy abajo asi que lo dejamos en posicion fija de pantalla -90
 					if(getPointerY()>=ry-90)
 						setSpritePositionByOffset(1, getSpriteXByOffSet(1), ry-90)
-						setSpritePositionByOffset(6, getSpriteXByOffSet(1)+1, ry-90-58)
-						setSpritePositionByOffset(7, getSpriteXByOffSet(1)+1, ry-90+58)
+						setSpritePositionByOffset(6, getSpriteXByOffSet(1)+2, ry-90-58)
+						setSpritePositionByOffset(7, getSpriteXByOffSet(1)+2, ry-90+58)
 					endif	
 				endif
 			endif
