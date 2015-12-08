@@ -14,6 +14,9 @@ SetOrientationAllowed(0, 0, 1, 1)
 rx= GetDeviceWidth()
 ry= GetDeviceHeight()
 
+LoadMusic(2,"menu.mp3")
+PlayMusic(2,1)
+
 //Cargamos la imagen de titulo y la ajustamos a pantalla
 LoadImage(7,"titulo.png")
 CreateSprite(8,7)
@@ -50,8 +53,10 @@ do
 	sync()
 loop
 
-
+//Etiqueta de inicio de juego
 juego:
+StopMusic()
+DeleteMusic(2)
 // Guardamos en 2 variables la altura y anchura de cualquier dispositivo
 rx= GetDeviceWidth()
 ry= GetDeviceHeight()
@@ -59,7 +64,7 @@ ry= GetDeviceHeight()
 // Cargamos las imagenes que vamos a utilizar, 1 barra, 1 bola y 3 marcos.
 LoadImage(1, "barra.png")
 LoadImage(2, "bola.png")
-LoadMusic(1,"music.mp3")
+LoadMusic(1,"main.mp3")
 PlayMusic(1,1)
 
 //Cargamos los 3 marcos
