@@ -1,5 +1,6 @@
 // Project: Fronton 
 // Created: 2015-12-05
+// Victor Melcon
 
 // set window properties
 SetWindowTitle("Fronton")
@@ -9,6 +10,48 @@ SetWindowSize(GetDeviceWidth(), GetDeviceHeight(), 0)
 SetVirtualResolution(GetDeviceWidth(), GetDeviceHeight())
 SetOrientationAllowed(0, 0, 1, 1)
 
+// Guardamos en 2 variables la altura y anchura de cualquier dispositivo
+rx= GetDeviceWidth()
+ry= GetDeviceHeight()
+
+//Cargamos la imagen de titulo y la ajustamos a pantalla
+LoadImage(7,"titulo.png")
+CreateSprite(8,7)
+SetSpriteSize(8,rx,-1)
+
+//Obtenemos el ancho y largo de la imagen
+sx=GetSpriteWidth(8)
+sy=GetSpriteHeight(8)
+//Creamos un texto y lo ajustamos en la posicion correcta
+text$="PRESS"
+CreateText(1,text$) 
+SetTextSize(1,sy/10)
+SetTextColor(1,255,0,0,255)
+SetTextPosition(1,sx/3.45,sy/1.46)
+
+do
+	//Hacemos que parpadee el texto a cada segundo
+	if Mod(GetSeconds(),2)=0
+		SetTextVisible(1,0)
+	else
+		SetTextVisible(1,1)
+	endif
+	
+	if getPointerState()
+		DeleteText(1)
+		deleteSprite(8)
+		gosub juego
+	endif
+	
+	//Si presionamos el boton de volver salimos del juego
+	if getRawKeyPressed(27)>0
+		end
+	endif
+	sync()
+loop
+
+
+juego:
 // Guardamos en 2 variables la altura y anchura de cualquier dispositivo
 rx= GetDeviceWidth()
 ry= GetDeviceHeight()
@@ -65,15 +108,15 @@ velocidadX#=6
 velocidadY#=6
 puntuacion=0
 maximo=0
-atrapado=0
+b=0
 
 //Ajustamos color y tamaño de nuestro texto
 SetPrintColor(255, 0, 0) 
 SetPrintSize(30)
 
-
 // Bucle principal
 do
+	
 	// Imprimimos la puntuacion
 	print("Puntuacion: " + Str(puntuacion) + "            Maxima:" + Str(maximo))
 	
@@ -172,4 +215,7 @@ do
 	endif
 
 	Sync()
+
 loop
+return
+
